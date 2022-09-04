@@ -75,7 +75,6 @@ public class Sutom {
 		ArrayList<String> combinations = generateCombinations(new ArrayList<>(Arrays.asList("0", "1", "2")), 1, wordLength-1);
 		
 		String bestFirstWord = Enum.valueOf(BestFirstWordsSutom.class, firstLetter + wordLength).getBestFirstWord().substring(1);
-		HashMap<String, String> bestSecondWords = fetchBestSecondWords("sutom/bestWords/" + firstLetter + bestFirstWord);
 		
 		String bestWord = "";
 		String combination = "";
@@ -83,6 +82,7 @@ public class Sutom {
 			if (bestWord == "") {
 				bestWord = bestFirstWord;
 			} else if (bestWord == bestFirstWord) {
+				HashMap<String, String> bestSecondWords = fetchBestSecondWords("sutom/bestWords/" + firstLetter + bestFirstWord);
 				bestWord = bestSecondWords.get(combination).substring(1);
 			} else {
 				bestWord = findBestWord(allowedWords, combinations, possibleWords);
@@ -140,7 +140,7 @@ public class Sutom {
 					}
 				}
 			}
-			if (entropy > bestEntropy) {
+			if (entropy > bestEntropy || (entropy == bestEntropy && possibleWords.contains(allowedWord))) {
 				bestEntropy = entropy;
 				bestWord = allowedWord;
 			}

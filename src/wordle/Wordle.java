@@ -10,6 +10,8 @@ import java.util.Scanner;
 import sutom.Sutom;
 
 public class Wordle {
+	
+	public static Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) throws FileNotFoundException {
 		
@@ -44,19 +46,19 @@ public class Wordle {
 			System.out.println();
 		}*/
 		
-		System.out.println("The answer is " + giveAnswer("EN"));
+		//System.out.println("The answer is " + giveAnswer("EN"));
+		for (BestFirstWordsWordle country : BestFirstWordsWordle.values()) {
+			System.out.println("The answer is " + giveAnswer(country.name()) + "\n");
+		}
 	}
 	
 	public static String giveAnswer(String language) throws FileNotFoundException {
-		
-		Scanner scanner = new Scanner(System.in);
 		
 		ArrayList<String> allowedWords = fetchWordsFromFile(language + "/allowedWords");
 		ArrayList<String> possibleWords = fetchWordsFromFile(language + "/possibleWords");
 		ArrayList<String> combinations = Sutom.generateCombinations(new ArrayList<>(Arrays.asList("0", "1", "2")), 1, 5);
 		
 		String bestFirstWord = Enum.valueOf(BestFirstWordsWordle.class, language).getBestFirstWord();
-		HashMap<String, String> bestSecondWords = Sutom.fetchBestSecondWords("wordle/" + language + "/" + bestFirstWord);
 		
 		String bestWord = "";
 		String combination = "";
@@ -64,6 +66,7 @@ public class Wordle {
 			if (bestWord == "") {
 				bestWord = bestFirstWord;
 			} else if (bestWord == bestFirstWord) {
+				HashMap<String, String> bestSecondWords = Sutom.fetchBestSecondWords("wordle/" + language + "/" + bestFirstWord);
 				bestWord = bestSecondWords.get(combination);
 			} else {
 				bestWord = Sutom.findBestWord(allowedWords, combinations, possibleWords);
@@ -75,12 +78,10 @@ public class Wordle {
 		
 		bestWord = possibleWords.get(0);
 		if (possibleWords.size() == 1) {
-			scanner.close();
 			return bestWord;
 		}
 		System.out.println(bestWord);
 		combination = scanner.next();
-		scanner.close();
 		if (!combination.contains("0") && !combination.contains("1")) {
 			return bestWord;
 		}

@@ -38,19 +38,24 @@ public class PlayGame {
 		int numberWords = 0;
 	    
 	    for (BestFirstWordsSutom typeWord : BestFirstWordsSutom.values()) {
+	    	HashMap<Integer, Integer> resultsTypeWord = new HashMap<>();
+			for (int i = 1; i <= 9; i++) {
+				resultsTypeWord.put(i, 0);
+			}
+	    	
 	    	String typeWordName = typeWord.name();
 	    	String firstLetter = Character.toString(typeWordName.charAt(0));
 	    	int wordLength = Integer.parseInt(Character.toString(typeWordName.charAt(1)));
 	    	ArrayList<String> allowedWords = Sutom.fetchWordsFromDictionary(wordLength, firstLetter);
 	    	ArrayList<String> possibleWordsFile = new ArrayList<>(allowedWords);
-	    	numberWords += possibleWordsFile.size();
+	    	int possibleWordsFileSize = possibleWordsFile.size();
+	    	numberWords += possibleWordsFileSize;
 			ArrayList<String> combinations = Sutom.generateCombinations(new ArrayList<>(Arrays.asList("0", "1", "2")), 1, wordLength-1);
 			String bestFirstWord = typeWord.getBestFirstWord().substring(1);
 			HashMap<String, String> bestSecondWords = Sutom.fetchBestSecondWords("sutom/bestWords/" + firstLetter + bestFirstWord);
 			String wordFoundCombination = computeCombination(bestFirstWord, bestFirstWord);
 			
 			for (String possibleWordFile : possibleWordsFile) {
-				System.out.println(firstLetter + possibleWordFile);
 				contentFile.append(firstLetter + possibleWordFile + " : ");
 				ArrayList<String> possibleWords = new ArrayList<>(possibleWordsFile);
 				String bestWord = "";
@@ -86,16 +91,31 @@ public class PlayGame {
 					}
 				}
 				results.put(numberAttempts, results.get(numberAttempts)+1);
+				resultsTypeWord.put(numberAttempts, resultsTypeWord.get(numberAttempts)+1);
 				contentFile.append("\n");
 			}
+			
+			System.out.println(wordLength + firstLetter);
+			double averageTypeWord = 0;
+			for (int i = 1; i <= 9; i++) {
+				int resultTypeWord = resultsTypeWord.get(i);
+				if (resultTypeWord > 0) {
+					System.out.print(i + " : " + resultTypeWord + " | ");
+					averageTypeWord += i * resultTypeWord;
+				}
+			}
+			averageTypeWord /= possibleWordsFileSize;
+			System.out.println("\nMoyenne = " + averageTypeWord);
 	    }
 	    contentFile.append("\n");
 		
 		double average = 0;
 		for (int i = 1; i <= 9; i++) {
 			int result = results.get(i);
-			contentFile.append(i + " : " + result + " | ");
-			average += i * result;
+			if (result > 0) {
+				contentFile.append(i + " : " + result + " | ");
+				average += i * result;
+			}
 		}
 		average /= numberWords;
 		contentFile.append("\nMoyenne = " + average);
@@ -165,8 +185,10 @@ public class PlayGame {
 		double average = 0;
 		for (int i = 1; i <= 9; i++) {
 			int result = results.get(i);
-			contentFile.append(i + " : " + result + " | ");
-			average += i * result;
+			if (result > 0) {
+				contentFile.append(i + " : " + result + " | ");
+				average += i * result;
+			}
 		}
 		average /= possibleWordsFile.size();
 		contentFile.append("\nAverage = " + average);
