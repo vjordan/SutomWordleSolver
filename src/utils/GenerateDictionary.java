@@ -30,7 +30,7 @@ public class GenerateDictionary {
 		for (String word : dictionary) {
 			contentFile.append(word + "\n");
 		}
-		fileWriter.write(contentFile.toString());
+		fileWriter.write(contentFile.deleteCharAt(contentFile.length()-1).toString());
 		fileWriter.close();
 	}
 

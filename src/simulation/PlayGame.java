@@ -17,12 +17,12 @@ public class PlayGame {
 
 	public static void main(String[] args) throws IOException {
 		
+		playSutom();
+		
+		//playWordle("FR");
 		/*for (BestFirstWordsWordle country : BestFirstWordsWordle.values()) {
 			playWordle(country.name());
 		}*/
-		
-		//playWordle("EN");
-		//playSutom();
 	}
 	
 	public static void playSutom() throws IOException {
@@ -45,7 +45,7 @@ public class PlayGame {
 	    	
 	    	String typeWordName = typeWord.name();
 	    	String firstLetter = Character.toString(typeWordName.charAt(0));
-	    	int wordLength = Integer.parseInt(Character.toString(typeWordName.charAt(1)));
+	    	int wordLength = Integer.parseInt(typeWordName.substring(1));
 	    	ArrayList<String> allowedWords = Sutom.fetchWordsFromDictionary(wordLength, firstLetter);
 	    	ArrayList<String> possibleWordsFile = new ArrayList<>(allowedWords);
 	    	int possibleWordsFileSize = possibleWordsFile.size();

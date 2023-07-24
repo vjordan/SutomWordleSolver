@@ -27,7 +27,7 @@ public class Wordle {
 		
 		// SAVE BEST SECOND WORDS
 		
-		/*String language = "EN";
+		/*String language = "FR";
 		String bestFirstWord = Enum.valueOf(BestFirstWordsWordle.class, language).getBestFirstWord();
 		ArrayList<String> allowedWords = fetchWordsFromFile(language + "/allowedWords");
 		ArrayList<String> possibleWords = fetchWordsFromFile(language + "/possibleWords");
@@ -46,10 +46,10 @@ public class Wordle {
 			System.out.println();
 		}*/
 		
-		//System.out.println("The answer is " + giveAnswer("EN"));
-		for (BestFirstWordsWordle country : BestFirstWordsWordle.values()) {
+		System.out.println("The answer is " + giveAnswer("FR"));
+		/*for (BestFirstWordsWordle country : BestFirstWordsWordle.values()) {
 			System.out.println("The answer is " + giveAnswer(country.name()) + "\n");
-		}
+		}*/
 	}
 	
 	public static String giveAnswer(String language) throws FileNotFoundException {

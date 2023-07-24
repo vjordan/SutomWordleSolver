@@ -21,7 +21,7 @@ public class Sutom {
 		// FIND BEST FIRST WORD
 		
 		/*String letters = "ABCDEFGHIJLMNOPRSTUV";
-		for (int wordLength = 6; wordLength <= 9; wordLength++) {
+		for (int wordLength = 6; wordLength <= 10; wordLength++) {
 			ArrayList<String> combinations = generateCombinations(new ArrayList<>(Arrays.asList("0", "1", "2")), 1, wordLength-1);
 			for (int positionLetter = 0; positionLetter < letters.length(); positionLetter++) {
 				String firstLetter = Character.toString(letters.charAt(positionLetter));
@@ -34,7 +34,7 @@ public class Sutom {
 		// SAVE BEST SECOND WORDS
 		
 		/*String letters = "ABCDEFGHIJLMNOPRSTUV";
-		for (int wordLength = 6; wordLength <= 9; wordLength++) {
+		for (int wordLength = 6; wordLength <= 10; wordLength++) {
 			ArrayList<String> combinations = generateCombinations(new ArrayList<>(Arrays.asList("0", "1", "2")), 1, wordLength-1);
 			for (int positionLetter = 0; positionLetter < letters.length(); positionLetter++) {
 				String firstLetter = Character.toString(letters.charAt(positionLetter));		
@@ -63,7 +63,7 @@ public class Sutom {
 			}
 		}*/
 		
-		System.out.println("La réponse est " + giveAnswer(6, "A"));
+		System.out.println("La réponse est " + giveAnswer(10, "V"));
 	}
 	
 	public static String giveAnswer(int wordLength, String firstLetter) throws FileNotFoundException {
